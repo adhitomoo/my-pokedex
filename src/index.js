@@ -1,12 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+
 import './index.css';
-import App from './App';
+import './fonts/Flexo.ttf';
+// import App from './App';
+
 import reportWebVitals from './reportWebVitals';
+
+import Homepage from './layouts/Homepage';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Homepage />
   </React.StrictMode>,
   document.getElementById('root')
 );

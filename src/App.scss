@@ -1,0 +1,51 @@
+body {
+  font-family: "Flexo", sans-serif;
+}
+
+.App {
+  text-align: center;
+}
+
+.container {
+  max-width: 85%;
+  margin: auto;
+  position: relative;
+  .load--section {
+    position: absolute;
+    bottom: -200px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    button.load--more {
+      background-color: #374151;
+      padding: 5px 18px;
+      color: #fff;
+      border-radius: 10px;
+      transition: 0.2s all ease-in-out;
+      &:hover {
+        background-color: #9CA3AF;
+      }
+    }
+  }
+}
+
+.cards {
+  cursor: pointer;
+}
+
+input {
+  &:focus-visible {
+    outline: none !important;
+  }
+}
+
+button {
+  &.icon--button {
+    padding: 10px 20px;
+  }
+}
+
+@font-face {
+  font-family: "Flexo";
+  src: local("Flexo"), url("./fonts/Flexo.ttf");
+}

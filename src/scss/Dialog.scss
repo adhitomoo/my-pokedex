@@ -1,0 +1,27 @@
+@supports ((-webkit-backdrop-filter: blur(2em)) or (backdrop-filter: blur(2em))) {
+  .dialog--container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #9ca3af8a;
+    .closed--dialog {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+    }
+    .dialog--content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      .card--content {
+        padding: 20px 36px;
+        background-color: #fff;
+        opacity: 1;
+        border-radius: 16px;
+      }
+    }
+  }
+}
