@@ -19,7 +19,7 @@ class Homepage extends Component {
                 </button>
               </nav>
 
-              <div className="h-screen bg-white rounded-xl">
+              <div className="bg-white rounded-xl">
                 <Route path="/" exact component={PokemonList}></Route>
               </div>
             </div>

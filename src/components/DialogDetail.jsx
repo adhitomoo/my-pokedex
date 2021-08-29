@@ -105,9 +105,9 @@ class DialogPokemon extends React.Component {
             </svg>
           </button>
         </div>
-        <div className="dialog--content">
-          <div className="card--content" style={{ width: this.props.width, height: this.props.height }}>
-            <div className="grid grid-cols-3 gap-4">
+        <div className="dialog--content py-20 sm:p-0">
+          <div className="card--content overflow-auto" style={{ width: this.props.width, height: this.props.height }}>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
               <div className="h-full bg-gray-200 opacity-80 rounded-l-lg p-4">
                 <div className="mb-2">
                   <span className="text-lg">Name : </span>
@@ -163,7 +163,7 @@ class DialogPokemon extends React.Component {
                 </div>
               </div>
 
-              <div className="col-span-2 relative">
+              <div className="col-span-2 relative mt-10 md:mt-0">
                 <div className="relative bg-no-repeat bg-cover rounded-lg" style={{ backgroundImage: "url(/battle--background.png)", height: '320px', backgroundPositionX: 'center' }}>
                   <img className="absolute" style={{ width: '200px', top: '40px', right: '90px' }} src={this.props.detail.sprites.front_default} alt="" />
                   <div className="flex justify-center absolute text-center left-0 right-0" style={{ bottom: '-80px' }}>

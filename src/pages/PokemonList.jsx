@@ -72,7 +72,7 @@ class PokemonList extends Component {
               <div className="text-xl">Total Pokemon : {this.state.count}</div>
             </div>
 
-            <div className="grid grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-4 md:grid-cols-1 gap-4">
               {this.state.cards.map((card, index) =>
                 <button key={index} onClick={() => this.showDialogHandler(card.url)}>
                   <CardPokemon name={card.name} series={convertSeries(index + 1)} />
@@ -92,6 +92,7 @@ class PokemonList extends Component {
         {this.state.dialog === false ? '' :
           <DialogPokemon
             width='920px'
+            min-height='100vh'
             detail={this.state.detail}
             closed={() => this.closeDialogHandler()}
           />}
