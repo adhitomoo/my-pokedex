@@ -27,12 +27,15 @@ class DialogPokemon extends React.Component {
         this.setState({ isActive: false })
         if (number === 0) {
           this.setState({ isCatch: true })
+          setTimeout(() => {
+            this.setState({ isCatch: false })
+          }, 3000)
           console.log('catch');
         } else {
           this.setState({ isCatch: false })
-          this.setState({ alert: `Oh Crap!! You almost get the ${this.props.detail.name}. Try Catch Again!!`})
+          this.setState({ alert: `Oh Crap!! You almost get the ${this.props.detail.name}. Try Catch Again!!` })
           setTimeout(() => {
-            this.setState({ alert: ''})
+            this.setState({ alert: '' })
           }, 4000)
         }
       }, 2000)
@@ -172,7 +175,7 @@ class DialogPokemon extends React.Component {
                 </div>
 
                 <div className="text-xl absolute bottom-0 font-bold">
-                  { this.state.alert }
+                  {this.state.alert}
                 </div>
 
               </div>
@@ -180,6 +183,15 @@ class DialogPokemon extends React.Component {
             </div>
           </div>
         </div>
+
+        {this.state.isCatch === true ? <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+          <div className="bg-gray-200 p-4 rounded-xl animate__animated animate__rubberBand" style={{ width: '300px' }}>
+            <div className="text-xl text-center">
+              Congrats, You Catch the <b className="font-extrabold uppercase">{this.props.detail.name}</b>
+            </div>
+          </div>
+        </div> : ''}
+
       </div>
     )
   }

@@ -17,6 +17,8 @@ class PokemonList extends Component {
     this.state = {
       cards: [],
       detail: {},
+      load: false,
+      count: 0,
       selectedPokemon: 0,
       dialog: false,
       limit: 8,
@@ -27,15 +29,20 @@ class PokemonList extends Component {
     this.loadHandler = this.loadHandler.bind(this);
   }
 
-  
+
   componentDidMount = () => {
     this.listPokemon();
   }
   listPokemon = async () => {
+    this.setState({ load: true })
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${this.state.limit}`)
     const data = await response.json();
+    await this.setState({ load: false })
     this.setState({
       cards: data.results,
+    });
+    this.setState({
+      count: data.count,
     });
   }
   getPokemon = async (val) => {
@@ -47,7 +54,7 @@ class PokemonList extends Component {
     this.setState({ limit: this.state.limit += 8 })
     this.listPokemon();
   }
-  
+
   showDialogHandler = async (val) => {
     await this.getPokemon(val);
     this.setState({ dialog: true })
@@ -62,12 +69,7 @@ class PokemonList extends Component {
         <div className="w-screen-full py-8">
           <div className="container">
             <div className="flex mb-10">
-              <input type="text" className="bg-white text-3xl border-b-2 transition-all focus:border-gray-800 focus:border-b-4" placeholder="Search" />
-              <button className="icon--button rounded-lg bg-gradient-to-r from-gray-800 to-gray-600">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="white">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
-              </button>
+              <div className="text-xl">Total Pokemon : {this.state.count}</div>
             </div>
 
             <div className="grid grid-cols-4 gap-4">
@@ -82,7 +84,9 @@ class PokemonList extends Component {
 
             <div className="load--section">
               <button className="load--more" onClick={() => this.loadHandler()}>
-                <span className="text-xl">Load More</span>
+                <div className="flex items-center">
+                  {this.state.load === true ? <img className="w-8 h-8" src="/loader.svg" alt="" /> : <span className="text-xl">Load More</span> }
+                </div>
               </button>
             </div>
           </div>
