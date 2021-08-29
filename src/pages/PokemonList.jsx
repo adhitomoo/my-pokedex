@@ -42,7 +42,6 @@ class PokemonList extends Component {
     const response = await fetch(val)
     const data = await response.json();
     this.setState({ detail: data })
-    console.log(this.state.detail)
   }
   loadHandler = () => {
     this.setState({ limit: this.state.limit += 8 })
@@ -52,7 +51,6 @@ class PokemonList extends Component {
   showDialogHandler = async (val) => {
     await this.getPokemon(val);
     this.setState({ dialog: true })
-    console.log('Test', this.state.detail);
   }
   closeDialogHandler = () => {
     this.setState({ dialog: false })
