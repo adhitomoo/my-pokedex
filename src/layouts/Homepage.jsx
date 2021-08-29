@@ -4,16 +4,11 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import PokemonList from '../pages/PokemonList';
 
 class Homepage extends Component {
-  componentDidMount() {
-    return fetch("https://pokeapi.co/api/v2/pokemon?limit=100&offset=200")
-      .then((response) => response.json())
-      .then((data) => console.log(data));
-  }
   render() {
     return (
       <Router>
         <Fragment>
-          <div style={{ backgroundImage: "url(/back--home.jpg)" }}>
+          <div style={{ backgroundImage: "url(/back--home.jpg)", height: '100%' }}>
             <div className="container max-w-screen-lg m-auto">
               <nav className="navbar navbar-expand-sm navbar-dark fixed-top bg-success py-6 flex justify-center">
                 <Link className="navbar-brand" to="/">
