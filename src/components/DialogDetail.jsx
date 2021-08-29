@@ -128,8 +128,8 @@ class DialogPokemon extends React.Component {
 
                   <div className="col-span-2 pb-2">
                     <span>Ability : </span>
-                    {this.props.detail.abilities.map((detail) =>
-                      <span className="capitalize mr-2">{detail.is_hidden === false && detail.ability.name}</span>
+                    {this.props.detail.abilities.map((detail, index) =>
+                      <span className="capitalize mr-2" key={index}>{detail.is_hidden === false && detail.ability.name}</span>
                     )}
                   </div>
                 </div>
