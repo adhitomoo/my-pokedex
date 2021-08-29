@@ -79,9 +79,6 @@ class PokemonList extends Component {
                 </button>)}
             </div>
 
-            <div>{this.state.detail && this.state.detail.sprites ? this.state.detail.sprites.back_default : ''}</div>
-            <div>{this.state.detail.name}</div>
-
             <div className="load--section">
               <button className="load--more" onClick={() => this.loadHandler()}>
                 <div className="flex items-center">
@@ -95,10 +92,7 @@ class PokemonList extends Component {
         {this.state.dialog === false ? '' :
           <DialogPokemon
             width='920px'
-            pokemonName={this.state.detail.name}
             detail={this.state.detail}
-            // type={this.state.detail.types}
-            // images={this.state.detail && this.state.detail.sprites ? this.state.detail.sprites.front_default : ''}
             closed={() => this.closeDialogHandler()}
           />}
       </Fragment>
