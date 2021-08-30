@@ -139,7 +139,7 @@ class DialogPokemon extends React.Component {
 
   render() {
     return (
-      <div className="dialog--container" style={{ backdropFilter: 'blur(5px)' }}>
+      <div className="dialog--container transition-opacity" style={{ backdropFilter: 'blur(5px)' }}>
         <div className="closed--dialog">
           <button onClick={this.props.closed}>
             <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">

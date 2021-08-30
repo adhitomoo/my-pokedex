@@ -16,9 +16,14 @@ class Homepage extends Component {
                 <Link className="navbar-brand" to="/">
                   <img src="/pokemon.png" width="320" alt=""></img>
                 </Link>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                  <span className="navbar-toggler-icon"></span>
-                </button>
+                <ul className="navbar-nav">
+                  <li className="nav-item active">
+                    <Link className="nav-link" to="/">Home</Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/mypokemon">My Pokemon</Link>
+                  </li>
+                </ul>
               </nav>
 
               <div className="bg-white rounded-xl">

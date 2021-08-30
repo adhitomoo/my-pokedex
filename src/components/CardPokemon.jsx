@@ -9,7 +9,7 @@ const CardPokemon = (props) => {
 
       <div className="card--title py-1">
         <div className="text-gray-400 text-sm mb-2">#{props.series}</div>
-        <h4 className="text-2xl mb-4 capitalize">{props.name}</h4>
+        <h4 className="text-2xl mb-4 capitalize">{ props.isHaveNickname === true ? props.nickname : props.name }</h4>
       </div>
     </div>
   )
