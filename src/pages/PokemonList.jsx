@@ -93,6 +93,7 @@ class PokemonList extends Component {
           <DialogPokemon
             width='920px'
             min-height='100vh'
+            isDidCatch={false}
             detail={this.state.detail}
             closed={() => this.closeDialogHandler()}
           />}
