@@ -2,6 +2,8 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 import PokemonList from '../pages/PokemonList';
+import MyPokemon from '../pages/MyPokemon';
+
 
 class Homepage extends Component {
   render() {
@@ -21,6 +23,7 @@ class Homepage extends Component {
 
               <div className="bg-white rounded-xl">
                 <Route path="/" exact component={PokemonList}></Route>
+                <Route path="/mypokemon" exact component={MyPokemon}></Route>
               </div>
             </div>
           </div>

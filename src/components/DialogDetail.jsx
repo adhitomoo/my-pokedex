@@ -7,36 +7,46 @@ class DialogPokemon extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      pokemonImages: {},
-      pokemonTypes: [],
+      pokemonList: [],
+      pokemonNickname: '',
+      myPokemon: {
+        image: '',
+        name: '',
+        nickname: '',
+        height: '',
+        weight: '',
+        ability: [],
+        stat: [],
+        type: [],
+
+      },
       pokeBall: '/pokeBall--close.png',
       alert: '',
       isActive: false,
       isCatch: false,
+      load: false,
     }
-    this.getNumber = this.getNumber.bind(this)
+    this.catchPokemon = this.catchPokemon.bind(this)
+    this.saveHandler = this.saveHandler.bind(this)
   }
 
-  getNumber = () => {
+  catchPokemon = () => {
     let number = parseInt(Math.random() * 2);
     this.closePokeball();
     this.state.isActive = true;
 
     if (this.state.isActive === true) {
       setTimeout(() => {
+        document.getElementById("pokeball").disabled = true;
         this.setState({ isActive: false })
         if (number === 0) {
           this.setState({ isCatch: true })
-          setTimeout(() => {
-            this.setState({ isCatch: false })
-          }, 3000)
-          console.log('catch');
         } else {
           this.setState({ isCatch: false })
           this.setState({ alert: `Oh Crap!! You almost get the ${this.props.detail.name}. Try Catch Again!!` })
           setTimeout(() => {
             this.setState({ alert: '' })
-          }, 4000)
+          }, 2500)
         }
       }, 2000)
     }
@@ -51,6 +61,9 @@ class DialogPokemon extends React.Component {
     return this.setState({
       pokeBall: '/pokeBall--close.png'
     })
+  }
+  closeDialog = () => {
+    this.setState({ isCatch: false })
   }
 
   typePokemon = (type) => {
@@ -93,6 +106,35 @@ class DialogPokemon extends React.Component {
         return { background: '#4593c4', text: '#fff' }
       default:
     }
+  }
+
+  updateNickname = (evt) => {
+    this.setState({
+      pokemonNickname: evt.target.value,
+    })
+  }
+  saveHandler = () => {
+    this.setState({ load: true})
+    this.setState(
+      Object.assign(this.state.myPokemon, {
+      image: this.props.detail.sprites.front_default,
+      name: this.props.detail.name,
+      nickname: this.state.pokemonNickname,
+      height: this.props.detail.height,
+      weight: this.props.detail.weight,
+      ability: this.props.detail.abilities,
+      stat: this.props.detail.stats,
+      type: this.props.detail.types,
+    }));
+    this.state.pokemonList.push(this.state.myPokemon);
+    localStorage.setItem('pokemon', JSON.stringify(this.state.pokemonList));
+    setTimeout(() => {
+      this.setState({
+        load: false,
+        isCatch: false,
+        alert: 'Horaay, Now you are the master of this pokemon :)'
+      })
+    }, 2000)
   }
 
   render() {
@@ -167,8 +209,8 @@ class DialogPokemon extends React.Component {
                 <div className="relative bg-no-repeat bg-cover rounded-lg" style={{ backgroundImage: "url(/battle--background.png)", height: '320px', backgroundPositionX: 'center' }}>
                   <img className="absolute" style={{ width: '200px', top: '40px', right: '90px' }} src={this.props.detail.sprites.front_default} alt="" />
                   <div className="flex justify-center absolute text-center left-0 right-0" style={{ bottom: '-80px' }}>
-                    <button className="p-4" onMouseOver={() => this.openPokeball()} onMouseOut={() => this.closePokeball()} onClick={() => this.getNumber()}>
-                      <img id="pokeball" className={this.state.isActive ? 'animate__animated animate__flash animate__infinite infinite' : ''} style={{ maxWidth: '100px' }} src={this.state.pokeBall} alt="" />
+                    <button id="pokeball" className="p-4" onMouseOver={() => this.openPokeball()} onMouseOut={() => this.closePokeball()} onClick={() => this.catchPokemon()}>
+                      <img className={this.state.isActive ? 'animate__animated animate__flash animate__infinite infinite' : ''} style={{ maxWidth: '100px' }} src={this.state.pokeBall} alt="" />
                       <div className="text-lg">Try Catch!!</div>
                     </button>
                   </div>
@@ -184,13 +226,30 @@ class DialogPokemon extends React.Component {
           </div>
         </div>
 
-        {this.state.isCatch === true ? <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center">
-          <div className="bg-gray-200 p-4 rounded-xl animate__animated animate__rubberBand" style={{ width: '300px' }}>
-            <div className="text-xl text-center">
-              Congrats, You Catch the <b className="font-extrabold uppercase">{this.props.detail.name}</b>
+        {this.state.isCatch === true ?
+          <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center">
+            <div className="bg-gray-200 p-4 text-center rounded-xl animate__animated animate__rubberBand" style={{ width: '300px' }}>
+              <button className="absolute -right-3 -top-3" onClick={() => this.closeDialog()}>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" viewBox="0 0 20 20" fill="#f00408">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+                </svg>
+              </button>
+              <div className="text-xl mb-4">
+                Congrats, You Caught the <b className="font-extrabold uppercase">{this.props.detail.name}</b>
+              </div>
+
+              <div>
+                <div className="text-md mb-2">Give the {this.props.detail.name} nickname to put in your pokemon list </div>
+                <input type="text" value={this.state.pokemonNickname} onChange={(evt) => this.updateNickname(evt)} placeholder="Nickname" maxLength="12" style={{ textIndent: '4px' }} />
+                <div className="h-8">
+                  <button className="rounded-lg bg-red-500 text-white py-2 px-4 relative -bottom-6" onClick={() => this.saveHandler()}>
+                    {this.state.load === true ? <img className="w-8 h-8" src="/loader.svg" alt="" /> : <span className="text-xl">Save</span>}
+                  </button>
+                </div>
+              </div>
             </div>
-          </div>
-        </div> : ''}
+          </div> :
+          ''}
 
       </div>
     )
